@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+{% block title %}
+    Lista de PDFS
+{% endblock title %}
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Fichas Técnicas</h1>
+        <form method="get" class="form-inline justify-content-center mb-4">
+            <div class="input-group">
+                <input type="text"
+                       name="q"
+                       class="form-control"
+                       placeholder="Buscar Fichas Técnicas"
+                       aria-label="Buscar Fichas Técnicas">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </div>
+        </form>
+        <div class="border rounded p-3"
+             style="max-height: 400px;
+                    overflow-y: auto">
+            <div class="list-group">
+                {% if pdfs %}
+                    {% for pdf in pdfs %}
+                        <a href="{% url 'core:download_pdf' pdf.id %}"
+                           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            {{ pdf.name }}
+                            <button class="btn btn-outline-secondary btn-sm">Descargar</button>
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <div class="list-group-item text-center">No se encontraron fichas técnicas.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
